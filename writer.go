@@ -9,7 +9,7 @@ import (
 
 	"github.com/gottingen/viper/vipercore"
 
-	"go.uber.org/multierr"
+	"github.com/gottingen/gekko/multierr"
 )
 
 // Open is a high-level wrapper that takes a variadic number of URLs, opens or

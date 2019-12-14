@@ -15,7 +15,7 @@ import (
 	"github.com/gottingen/buffer"
 
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/multierr"
+	"github.com/gottingen/gekko/multierr"
 )
 
 func TestJSONClone(t *testing.T) {

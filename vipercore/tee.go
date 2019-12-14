@@ -2,7 +2,7 @@
 
 package vipercore
 
-import "go.uber.org/multierr"
+import "github.com/gottingen/gekko/multierr"
 
 type multiCore []Core
 

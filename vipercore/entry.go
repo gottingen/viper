@@ -11,7 +11,7 @@ import (
 	"github.com/gottingen/buffer"
 	"github.com/gottingen/viper/internal/exit"
 
-	"go.uber.org/multierr"
+	"github.com/gottingen/gekko/multierr"
 )
 
 var (

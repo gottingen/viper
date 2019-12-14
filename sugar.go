@@ -7,7 +7,7 @@ import (
 
 	"github.com/gottingen/viper/vipercore"
 
-	"go.uber.org/multierr"
+	"github.com/gottingen/gekko/multierr"
 )
 
 const (

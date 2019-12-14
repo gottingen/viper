@@ -22,7 +22,7 @@ func TestTakeStacktrace(t *testing.T) {
 	)
 }
 
-func TestIsZapFrame(t *testing.T) {
+func TestIsViperFrame(t *testing.T) {
 	viperFrames := []string{
 		"github.com/gottingen/viper.Stack",
 		"github.com/gottingen/viper.(*SugaredLogger).log",
@@ -33,7 +33,7 @@ func TestIsZapFrame(t *testing.T) {
 	}
 	nonZapFrames := []string{
 		"github.com/uber/tchannel-go.NewChannel",
-		"go.uber.org/not-viper.New",
+		"github.com/gottingen/not-viper.New",
 		"github.com/gottingen/viperext.ctx",
 		"github.com/gottingen/viper_ext/ctx.New",
 	}
