@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"go.uber.org/multierr"
+	"github.com/gottingen/gekko/multierr"
 	"github.com/gottingen/viper"
 	"github.com/gottingen/viper/internal/vtest"
 	"github.com/gottingen/viper/vipercore"
