@@ -17,7 +17,7 @@ import (
 // WriteSyncer. It also returns any error encountered and a function to close
 // any opened files.
 //
-// Passing no URLs returns a no-op WriteSyncer. Zap handles URLs without a
+// Passing no URLs returns a no-op WriteSyncer. Viper handles URLs without a
 // scheme and URLs with the "file" scheme. Third-party code may register
 // factories for other schemes using RegisterSink.
 //

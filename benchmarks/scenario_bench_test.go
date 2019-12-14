@@ -12,8 +12,8 @@ import (
 
 func BenchmarkDisabledWithoutFields(b *testing.B) {
 	b.Logf("Logging at a disabled level without any structured context.")
-	b.Run("Zap", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel)
+	b.Run("Viper", func(b *testing.B) {
+		logger := newViperLogger(viper.ErrorLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -22,7 +22,7 @@ func BenchmarkDisabledWithoutFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Check", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel)
+		logger := newViperLogger(viper.ErrorLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -33,7 +33,7 @@ func BenchmarkDisabledWithoutFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Sugar", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel).Sugar()
+		logger := newViperLogger(viper.ErrorLevel).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -42,7 +42,7 @@ func BenchmarkDisabledWithoutFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.SugarFormatting", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel).Sugar()
+		logger := newViperLogger(viper.ErrorLevel).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -81,8 +81,8 @@ func BenchmarkDisabledWithoutFields(b *testing.B) {
 
 func BenchmarkDisabledAccumulatedContext(b *testing.B) {
 	b.Logf("Logging at a disabled level with some accumulated context.")
-	b.Run("Zap", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel).With(fakeFields()...)
+	b.Run("Viper", func(b *testing.B) {
+		logger := newViperLogger(viper.ErrorLevel).With(fakeFields()...)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -91,7 +91,7 @@ func BenchmarkDisabledAccumulatedContext(b *testing.B) {
 		})
 	})
 	b.Run("viper.Check", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel).With(fakeFields()...)
+		logger := newViperLogger(viper.ErrorLevel).With(fakeFields()...)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -102,7 +102,7 @@ func BenchmarkDisabledAccumulatedContext(b *testing.B) {
 		})
 	})
 	b.Run("viper.Sugar", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel).With(fakeFields()...).Sugar()
+		logger := newViperLogger(viper.ErrorLevel).With(fakeFields()...).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -111,7 +111,7 @@ func BenchmarkDisabledAccumulatedContext(b *testing.B) {
 		})
 	})
 	b.Run("viper.SugarFormatting", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel).With(fakeFields()...).Sugar()
+		logger := newViperLogger(viper.ErrorLevel).With(fakeFields()...).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -150,8 +150,8 @@ func BenchmarkDisabledAccumulatedContext(b *testing.B) {
 
 func BenchmarkDisabledAddingFields(b *testing.B) {
 	b.Logf("Logging at a disabled level, adding context at each log site.")
-	b.Run("Zap", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel)
+	b.Run("Viper", func(b *testing.B) {
+		logger := newViperLogger(viper.ErrorLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -160,7 +160,7 @@ func BenchmarkDisabledAddingFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Check", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel)
+		logger := newViperLogger(viper.ErrorLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -171,7 +171,7 @@ func BenchmarkDisabledAddingFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Sugar", func(b *testing.B) {
-		logger := newZapLogger(viper.ErrorLevel).Sugar()
+		logger := newViperLogger(viper.ErrorLevel).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -210,8 +210,8 @@ func BenchmarkDisabledAddingFields(b *testing.B) {
 
 func BenchmarkWithoutFields(b *testing.B) {
 	b.Logf("Logging without any structured context.")
-	b.Run("Zap", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel)
+	b.Run("Viper", func(b *testing.B) {
+		logger := newViperLogger(viper.DebugLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -220,7 +220,7 @@ func BenchmarkWithoutFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Check", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel)
+		logger := newViperLogger(viper.DebugLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -244,7 +244,7 @@ func BenchmarkWithoutFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Sugar", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel).Sugar()
+		logger := newViperLogger(viper.DebugLevel).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -253,7 +253,7 @@ func BenchmarkWithoutFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.SugarFormatting", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel).Sugar()
+		logger := newViperLogger(viper.DebugLevel).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -348,8 +348,8 @@ func BenchmarkWithoutFields(b *testing.B) {
 
 func BenchmarkAccumulatedContext(b *testing.B) {
 	b.Logf("Logging with some accumulated context.")
-	b.Run("Zap", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel).With(fakeFields()...)
+	b.Run("Viper", func(b *testing.B) {
+		logger := newViperLogger(viper.DebugLevel).With(fakeFields()...)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -358,7 +358,7 @@ func BenchmarkAccumulatedContext(b *testing.B) {
 		})
 	})
 	b.Run("viper.Check", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel).With(fakeFields()...)
+		logger := newViperLogger(viper.DebugLevel).With(fakeFields()...)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -382,7 +382,7 @@ func BenchmarkAccumulatedContext(b *testing.B) {
 		})
 	})
 	b.Run("viper.Sugar", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel).With(fakeFields()...).Sugar()
+		logger := newViperLogger(viper.DebugLevel).With(fakeFields()...).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -391,7 +391,7 @@ func BenchmarkAccumulatedContext(b *testing.B) {
 		})
 	})
 	b.Run("viper.SugarFormatting", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel).With(fakeFields()...).Sugar()
+		logger := newViperLogger(viper.DebugLevel).With(fakeFields()...).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -468,8 +468,8 @@ func BenchmarkAccumulatedContext(b *testing.B) {
 
 func BenchmarkAddingFields(b *testing.B) {
 	b.Logf("Logging with additional context at each log site.")
-	b.Run("Zap", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel)
+	b.Run("Viper", func(b *testing.B) {
+		logger := newViperLogger(viper.DebugLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -478,7 +478,7 @@ func BenchmarkAddingFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Check", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel)
+		logger := newViperLogger(viper.DebugLevel)
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -502,7 +502,7 @@ func BenchmarkAddingFields(b *testing.B) {
 		})
 	})
 	b.Run("viper.Sugar", func(b *testing.B) {
-		logger := newZapLogger(viper.DebugLevel).Sugar()
+		logger := newViperLogger(viper.DebugLevel).Sugar()
 		b.ResetTimer()
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {

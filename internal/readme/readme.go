@@ -18,7 +18,7 @@ import (
 
 var (
 	libraryNameToMarkdownName = map[string]string{
-		"Zap":                   ":viper: viper",
+		"Viper":                   ":viper: viper",
 		"viper.Sugar":             ":viper: viper (sugared)",
 		"stdlib.Println":        "standard library",
 		"sirupsen/logrus":       "logrus",
@@ -78,8 +78,8 @@ func getBenchmarkRows(benchmarkName string) (string, error) {
 		return "", err
 	}
 
-	// get the Zap time (unsugared) as baseline to compare with other loggers
-	baseline, err := getBenchmarkRow(benchmarkOutput, benchmarkName, "Zap", nil)
+	// get the Viper time (unsugared) as baseline to compare with other loggers
+	baseline, err := getBenchmarkRow(benchmarkOutput, benchmarkName, "Viper", nil)
 	if err != nil {
 		return "", err
 	}
@@ -142,9 +142,9 @@ func getBenchmarkRow(
 	}
 
 	if baseline != nil {
-		r.ZapTime = baseline.Time
-		r.ZapAllocatedBytes = baseline.AllocatedBytes
-		r.ZapAllocatedObjects = baseline.AllocatedObjects
+		r.ViperTime = baseline.Time
+		r.ViperAllocatedBytes = baseline.AllocatedBytes
+		r.ViperAllocatedObjects = baseline.AllocatedObjects
 	}
 
 	return r, nil
@@ -186,9 +186,9 @@ type benchmarkRow struct {
 	AllocatedBytes   int
 	AllocatedObjects int
 
-	ZapTime             time.Duration
-	ZapAllocatedBytes   int
-	ZapAllocatedObjects int
+	ViperTime             time.Duration
+	ViperAllocatedBytes   int
+	ViperAllocatedObjects int
 }
 
 func (b *benchmarkRow) String() string {
@@ -199,7 +199,7 @@ func (b *benchmarkRow) String() string {
 		)
 	}
 	t := b.Time.Nanoseconds()
-	tp := pct(t, b.ZapTime.Nanoseconds())
+	tp := pct(t, b.ViperTime.Nanoseconds())
 
 	return fmt.Sprintf(
 		"| %s | %d ns/op | %s | %d allocs/op", b.Name,
@@ -213,12 +213,12 @@ func (b benchmarkRowsByTime) Len() int      { return len(b) }
 func (b benchmarkRowsByTime) Swap(i, j int) { b[i], b[j] = b[j], b[i] }
 func (b benchmarkRowsByTime) Less(i, j int) bool {
 	left, right := b[i], b[j]
-	leftZap, rightZap := strings.Contains(left.Name, "viper"), strings.Contains(right.Name, "viper")
+	leftViper, rightViper := strings.Contains(left.Name, "viper"), strings.Contains(right.Name, "viper")
 
 	// If neither benchmark is for viper or both are, sort by time.
-	if !(leftZap || rightZap) || (leftZap && rightZap) {
+	if !(leftViper || rightViper) || (leftViper && rightViper) {
 		return left.Time.Nanoseconds() < right.Time.Nanoseconds()
 	}
 	// Sort viper benchmark first.
-	return leftZap
+	return leftViper
 }

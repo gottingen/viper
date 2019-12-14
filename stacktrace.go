@@ -44,17 +44,17 @@ func takeStacktrace() string {
 	}
 
 	i := 0
-	skipZapFrames := true // skip all consecutive viper frames at the beginning.
+	skipViperFrames := true // skip all consecutive viper frames at the beginning.
 	frames := runtime.CallersFrames(programCounters.pcs[:numFrames])
 
 	// Note: On the last iteration, frames.Next() returns false, with a valid
 	// frame, but we ignore this frame. The last frame is a a runtime frame which
 	// adds noise, since it's only either runtime.main or runtime.goexit.
 	for frame, more := frames.Next(); more; frame, more = frames.Next() {
-		if skipZapFrames && isZapFrame(frame.Function) {
+		if skipViperFrames && isViperFrame(frame.Function) {
 			continue
 		} else {
-			skipZapFrames = false
+			skipViperFrames = false
 		}
 
 		if i != 0 {
@@ -72,7 +72,7 @@ func takeStacktrace() string {
 	return buf.String()
 }
 
-func isZapFrame(function string) bool {
+func isViperFrame(function string) bool {
 	for _, prefix := range _viperStacktracePrefixes {
 		if strings.HasPrefix(function, prefix) {
 			return true

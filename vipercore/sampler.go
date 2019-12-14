@@ -75,7 +75,7 @@ type sampler struct {
 // and I/O load of logging while attempting to preserve a representative subset
 // of your logs.
 //
-// Zap samples by logging the first N entries with a given level and message
+// Viper samples by logging the first N entries with a given level and message
 // each tick. If more Entries with the same level and message are seen during
 // the same interval, every Mth message is logged and the rest are dropped.
 //

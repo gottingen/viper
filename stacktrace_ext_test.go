@@ -47,17 +47,17 @@ var _viperPackages = []string{
 	"github.com/gottingen/viper/vipercore.",
 }
 
-func TestStacktraceFiltersZapLog(t *testing.T) {
+func TestStacktraceFiltersViperLog(t *testing.T) {
 	withLogger(t, func(logger *viper.Logger, out *bytes.Buffer) {
 		logger.Error("test log")
 		logger.Sugar().Error("sugar test log")
 
-		require.Contains(t, out.String(), "TestStacktraceFiltersZapLog", "Should not strip out non-viper import")
-		verifyNoZap(t, out.String())
+		require.Contains(t, out.String(), "TestStacktraceFiltersViperLog", "Should not strip out non-viper import")
+		verifyNoViper(t, out.String())
 	})
 }
 
-func TestStacktraceFiltersZapMarshal(t *testing.T) {
+func TestStacktraceFiltersViperMarshal(t *testing.T) {
 	withLogger(t, func(logger *viper.Logger, out *bytes.Buffer) {
 		marshal := func(enc vipercore.ObjectEncoder) error {
 			logger.Warn("marshal caused warn")
@@ -69,12 +69,12 @@ func TestStacktraceFiltersZapMarshal(t *testing.T) {
 		logs := out.String()
 
 		// The marshal function (which will be under the test function) should not be stripped.
-		const marshalFnPrefix = "TestStacktraceFiltersZapMarshal."
+		const marshalFnPrefix = "TestStacktraceFiltersViperMarshal."
 		require.Contains(t, logs, marshalFnPrefix, "Should not strip out marshal call")
 
 		// There should be no viper stack traces before that point.
 		marshalIndex := strings.Index(logs, marshalFnPrefix)
-		verifyNoZap(t, logs[:marshalIndex])
+		verifyNoViper(t, logs[:marshalIndex])
 
 		// After that point, there should be viper stack traces - we don't want to strip out
 		// the Marshal caller information.
@@ -84,7 +84,7 @@ func TestStacktraceFiltersZapMarshal(t *testing.T) {
 	})
 }
 
-func TestStacktraceFiltersVendorZap(t *testing.T) {
+func TestStacktraceFiltersVendorViper(t *testing.T) {
 	// We already have the dependencies downloaded so this should be
 	// instant.
 	deps := downloadDependencies(t)
@@ -111,7 +111,7 @@ func TestStacktraceFiltersVendorZap(t *testing.T) {
 
 		// Now run the above test which ensures we filter out viper
 		// stacktraces, but this time viper is in a vendor
-		cmd := exec.Command("go", "test", "-v", "-run", "TestStacktraceFiltersZap")
+		cmd := exec.Command("go", "test", "-v", "-run", "TestStacktraceFiltersViper")
 		cmd.Dir = testDir
 		cmd.Env = append(os.Environ(), "GO111MODULE=off")
 		out, err := cmd.CombinedOutput()
@@ -130,7 +130,7 @@ func withLogger(t *testing.T, fn func(logger *viper.Logger, out *bytes.Buffer)) 
 	fn(logger, buf)
 }
 
-func verifyNoZap(t *testing.T, logs string) {
+func verifyNoViper(t *testing.T, logs string) {
 	for _, fnPrefix := range _viperPackages {
 		require.NotContains(t, logs, fnPrefix, "Should not strip out marshal call")
 	}

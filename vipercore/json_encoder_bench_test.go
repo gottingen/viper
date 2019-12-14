@@ -21,7 +21,7 @@ func BenchmarkJSONLogMarshalerFunc(b *testing.B) {
 	}
 }
 
-func BenchmarkZapJSON(b *testing.B) {
+func BenchmarkViperJSON(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			enc := NewJSONEncoder(testEncoderConfig())

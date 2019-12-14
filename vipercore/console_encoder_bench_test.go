@@ -9,7 +9,7 @@ import (
 	. "github.com/gottingen/viper/vipercore"
 )
 
-func BenchmarkZapConsole(b *testing.B) {
+func BenchmarkViperConsole(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			enc := NewConsoleEncoder(humanEncoderConfig())

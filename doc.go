@@ -7,7 +7,7 @@
 // and make many small allocations. Put differently, using json.Marshal and
 // fmt.Fprintf to log tons of interface{} makes your application slow.
 //
-// Zap takes a different approach. It includes a reflection-free,
+// Viper takes a different approach. It includes a reflection-free,
 // zero-allocation JSON encoder, and the base Logger strives to avoid
 // serialization overhead and allocations wherever possible. By building the
 // high-level SugaredLogger on that foundation, viper lets users choose when
@@ -55,7 +55,7 @@
 //   sugar := logger.Sugar()
 //   plain := sugar.Desugar()
 //
-// Configuring Zap
+// Configuring Viper
 //
 // The simplest way to build a Logger is to use viper's opinionated presets:
 // NewExample, NewProduction, and NewDevelopment. These presets build a logger
@@ -76,7 +76,7 @@
 // github.com/gottingen/viper/vipercore. See the package-level AdvancedConfiguration
 // example for sample code.
 //
-// Extending Zap
+// Extending Viper
 //
 // The viper package itself is a relatively thin wrapper around the interfaces
 // in github.com/gottingen/viper/vipercore. Extending viper to support a new encoding (e.g.,

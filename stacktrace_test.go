@@ -31,7 +31,7 @@ func TestIsViperFrame(t *testing.T) {
 		"github.com/gottingen/tchannel-go/vendor/github.com/gottingen/viper.(*SugaredLogger).log",
 		"github.com/gottingen/tchannel-go/vendor/github.com/gottingen/viper/vipercore.(ArrayMarshalerFunc).MarshalLogArray",
 	}
-	nonZapFrames := []string{
+	nonViperFrames := []string{
 		"github.com/uber/tchannel-go.NewChannel",
 		"github.com/gottingen/not-viper.New",
 		"github.com/gottingen/viperext.ctx",
@@ -40,12 +40,12 @@ func TestIsViperFrame(t *testing.T) {
 
 	t.Run("viper frames", func(t *testing.T) {
 		for _, f := range viperFrames {
-			require.True(t, isZapFrame(f), f)
+			require.True(t, isViperFrame(f), f)
 		}
 	})
 	t.Run("non-viper frames", func(t *testing.T) {
-		for _, f := range nonZapFrames {
-			require.False(t, isZapFrame(f), f)
+		for _, f := range nonViperFrames {
+			require.False(t, isViperFrame(f), f)
 		}
 	})
 }

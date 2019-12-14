@@ -80,7 +80,7 @@ func TestTestLoggerSupportsLevels(t *testing.T) {
 	)
 }
 
-func TestTestLoggerSupportsWrappedZapOptions(t *testing.T) {
+func TestTestLoggerSupportsWrappedViperOptions(t *testing.T) {
 	ts := newTestLogSpy(t)
 	defer ts.AssertPassed()
 

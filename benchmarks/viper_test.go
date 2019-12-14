@@ -85,7 +85,7 @@ func (u *user) MarshalLogObject(enc vipercore.ObjectEncoder) error {
 	return nil
 }
 
-func newZapLogger(lvl vipercore.Level) *viper.Logger {
+func newViperLogger(lvl vipercore.Level) *viper.Logger {
 	ec := viper.NewProductionEncoderConfig()
 	ec.EncodeDuration = vipercore.NanosDurationEncoder
 	ec.EncodeTime = vipercore.EpochNanosTimeEncoder
@@ -99,7 +99,7 @@ func newZapLogger(lvl vipercore.Level) *viper.Logger {
 
 func newSampledLogger(lvl vipercore.Level) *viper.Logger {
 	return viper.New(vipercore.NewSampler(
-		newZapLogger(viper.DebugLevel).Core(),
+		newViperLogger(viper.DebugLevel).Core(),
 		100*time.Millisecond,
 		10, // first
 		10, // thereafter
